@@ -1,6 +1,8 @@
 
 import 'package:flutter/material.dart';
 
+import 'Layout/home_layout.dart';
+
 void main(){
   runApp(MyApp());
 }
@@ -12,8 +14,9 @@ class MyApp extends StatelessWidget {
     return
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: ,
+        initialRoute:HomeLayout.routename ,
         routes:{
+          HomeLayout.routename:(c)=> HomeLayout(),
 
       },
       );
