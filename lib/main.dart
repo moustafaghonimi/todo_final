@@ -1,24 +1,57 @@
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/providers/myprovider.dart';
+import 'package:todo/shared/styles/my_them.dart';
 
 import 'Layout/home_layout.dart';
-
-void main(){
-  runApp(MyApp());
+import 'firebase_options.dart';
+import 'modules/update_screen/update_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+void main()async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp( MultiProvider(
+    providers: [
+      // ChangeNotifierProvider(create: (context) => BottomNavBar(),),
+      ChangeNotifierProvider(create: (context) => MyProvider(),),
+    ],
+    child: MyApp(),
+  ),);
 }
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    // var provider=Provider.of<Myprovider>(context);
+
     return
       MaterialApp(
+        localizationsDelegates: [
+          AppLocalizations.delegate, // Add this line
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: [
+          Locale('en', ''), // English, no country code
+          Locale('ar', ''),
+        ],
+        locale: Locale('en'),
         debugShowCheckedModeBanner: false,
         initialRoute:HomeLayout.routename ,
         routes:{
           HomeLayout.routename:(c)=> HomeLayout(),
+          updateScreen.routeName:(context) => updateScreen(),
 
       },
+       theme: MyThemeData.lightTheme,
+        darkTheme: MyThemeData.darkTheme,
+        themeMode: ThemeMode.light,
       );
   }
 }
