@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class updateField extends StatelessWidget {
 
@@ -13,13 +14,39 @@ class updateField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+
       controller: controller,
       style: TextStyle(),
       keyboardType: type,
       decoration: InputDecoration(
-        hintText: hint,
-      ),
-      onChanged: onChange,
+        label: Text(hint,
+          style: Theme.of(context)
+              .textTheme
+              .headline1
+              ?.copyWith(fontWeight: FontWeight.w400,fontSize: 22),),
+        enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(25),
+            borderSide: BorderSide(
+                color:Colors.blue,
+                style: BorderStyle.solid,
+                width: 2)),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25),
+          borderSide: BorderSide(
+              color:Colors.blue,
+              style: BorderStyle.solid,
+              width: 2),
+
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(25),
+          borderSide: BorderSide(
+              color:Colors.blue,
+              style: BorderStyle.solid,
+              width: 2),),
+        hintText: hint
+
+      ),      onChanged: onChange,
       validator: validator,
     );
   }

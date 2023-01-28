@@ -17,7 +17,6 @@ void main()async{
   );
   runApp( MultiProvider(
     providers: [
-      // ChangeNotifierProvider(create: (context) => BottomNavBar(),),
       ChangeNotifierProvider(create: (context) => MyProvider(),),
     ],
     child: MyApp(),
@@ -27,7 +26,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // var provider=Provider.of<Myprovider>(context);
+    var provider=Provider.of<MyProvider>(context);
 
     return
       MaterialApp(
@@ -41,7 +40,7 @@ class MyApp extends StatelessWidget {
           Locale('en', ''), // English, no country code
           Locale('ar', ''),
         ],
-        locale: Locale('en'),
+        locale: Locale(provider.languageCode),
         debugShowCheckedModeBanner: false,
         initialRoute:HomeLayout.routename ,
         routes:{
@@ -49,9 +48,9 @@ class MyApp extends StatelessWidget {
           updateScreen.routeName:(context) => updateScreen(),
 
       },
-       theme: MyThemeData.lightTheme,
+        theme: MyThemeData.lightTheme,
         darkTheme: MyThemeData.darkTheme,
-        themeMode: ThemeMode.light,
+        themeMode: provider.themeMode,
       );
   }
 }

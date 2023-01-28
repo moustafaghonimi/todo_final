@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/modules/settings/settings.dart';
 import 'package:todo/modules/tasks/task_list.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:todo/providers/myprovider.dart';
+import 'package:todo/shared/styles/colors.dart';
 
 import '../modules/tasks/addTaskBottomSheat.dart';
 
@@ -16,9 +20,10 @@ class _HomeLayoutState extends State<HomeLayout> {
 
   @override
   Widget build(BuildContext context) {
+    var provider = Provider.of<MyProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text( 'To Do App',
+        title: Text(currentIndex==0?AppLocalizations.of(context)!.titleappBarHome:AppLocalizations.of(context)!.settings,
             textAlign: TextAlign.center),
       ),
       body: tabs[currentIndex],
@@ -43,21 +48,28 @@ class _HomeLayoutState extends State<HomeLayout> {
           currentIndex: currentIndex,
           onTap: (index) {
             currentIndex = index;
+
             setState(() {});
           },
           items: [
             BottomNavigationBarItem(
+                backgroundColor: provider.themeMode == ThemeMode.light
+                    ? colorWhite
+                    : colorBlack,
                 icon: Icon(
                   Icons.list,
                   size: 30,
                 ),
-                label: 'List'),
+                label: AppLocalizations.of(context)!.list),
             BottomNavigationBarItem(
+                backgroundColor: provider.themeMode == ThemeMode.light
+                    ? colorWhite
+                    : colorBlack,
                 icon: Icon(
                   Icons.settings,
                   size: 30,
                 ),
-                label: 'Settings'),
+                label: AppLocalizations.of(context)!.settings),
           ],
         ),
       ),
@@ -69,6 +81,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(top: Radius.circular(25.0))),
         context: context,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         isScrollControlled: true,
         builder: (context) => Padding(
             padding: EdgeInsets.only(

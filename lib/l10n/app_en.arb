@@ -1,6 +1,29 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  }
+  "titleappBarHome": "To Do App",
+  "list": "List",
+  "settings": "Settings",
+  "update_Screen": "Update Screen",
+  "update_Task": "Edit Task",
+  "title": "Title",
+  "them": "Them",
+  "description": "Description",
+  "selectDate": "Select Date",
+  "save_Changes": "Save Changes",
+  "please_Enter_Task_Description": "Please Enter Task Description",
+  "please_Enter_Task_title": "Please Enter Task Title",
+
+  "english": "English",
+  "arabic": "Arabic",
+  "language": "Language",
+  "light": "Light",
+  "add_New_Task": "Add New Task",
+  "task_is_Added": "Task is Added",
+  "ok": "OK",
+  "delete": "Delete",
+  "edit": "Edit",
+  "samthing_Has_Error": "Samthing Has Error",
+  "done": "Done!",
+  "dark":"Dark"
+
+
 }

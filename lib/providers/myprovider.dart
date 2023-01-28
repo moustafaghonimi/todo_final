@@ -5,14 +5,11 @@ import 'package:todo/models/task.dart';
 import 'package:todo/shared/network/local/firestore_utlis.dart';
 
 class MyProvider extends ChangeNotifier {
+  DateTime selectedDateprovid=DateTime.now();
   ThemeMode themeMode = ThemeMode.light;
 
-  void changeTheme() {
-    if (themeMode == ThemeMode.light) {
-      themeMode = ThemeMode.dark;
-    } else {
-      themeMode = ThemeMode.light;
-    }
+  void changeTheme(ThemeMode them ) {
+themeMode=them;
     notifyListeners();
   }
 
@@ -37,7 +34,7 @@ class MyProvider extends ChangeNotifier {
   }
 
   void updateDone(Tasks task) {
-    FirebaseFirestore.instance.collection('tasks').doc(task.id).update({
+    FirebaseFirestore.instance.collection('Tasks').doc(task.id).update({
       'isDone': true,
     }).timeout(Duration(milliseconds: 500), onTimeout: () {
       getTaskCollection();

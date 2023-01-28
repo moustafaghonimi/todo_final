@@ -1,6 +1,31 @@
 {
-  "helloWorld": "Hello World!",
-  "@helloWorld": {
-    "description": "The conventional newborn programmer greeting"
-  }
+  "titleappBarHome": "مهماتك",
+
+  "list": "القائمه",
+  "settings": "الاعدادات",
+  "update_Screen": "صفحة التحديثات",
+  "update_Task": "تعديل المهمه",
+  "title": "العنوان",
+  "them": "السمه",
+
+  "description": "الوصف",
+  "selectDate": "اختار اليوم",
+  "Save Changes": "حفظ التغييرات",
+  "please_Enter_Task_title": "من فضلك ادخل العنوان",
+  "please_Enter_Task_Description": "من فضلك ادخل الوصف",
+  "english": "الانجليزيه",
+  "arabic": "العربيه",
+  "language": "اللغه",
+  "light": "ساطع",
+  "add_New_Task": "اضف مهمه جديده",
+  "task_is_Added": "تم اضافه المهمه",
+  "ok": "حسنا",
+  "delete": "حذف",
+  "edit": "تعديل",
+  "samthing_Has_Error": "!حدث خطا",
+  "done": "! تم  ",
+  "dark":"غامق"
+
+
+
 }

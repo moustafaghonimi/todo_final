@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:todo/models/task.dart';
 import 'package:todo/shared/componant/ui_utlis.dart';
 import 'package:todo/shared/network/local/firestore_utlis.dart';
@@ -12,11 +12,9 @@ class AddTaskBottomSheat extends StatefulWidget {
 }
 
 class _AddTaskBottomSheatState extends State<AddTaskBottomSheat> {
-
-var titleControler=TextEditingController();
-var descriaptionControler=TextEditingController();
-DateTime selectDate=DateTime.now();
-
+  var titleControler = TextEditingController();
+  var descriaptionControler = TextEditingController();
+  DateTime selectDate = DateTime.now();
 
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
@@ -30,10 +28,10 @@ DateTime selectDate=DateTime.now();
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            'Add New Task',
+            AppLocalizations.of(context)!.add_New_Task,
             textAlign: TextAlign.center,
             style: Theme.of(context).textTheme.headline1?.copyWith(
-                  color: Theme.of(context).colorScheme.onSurface,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
           ),
           SizedBox(
@@ -46,27 +44,42 @@ DateTime selectDate=DateTime.now();
                 TextFormField(
                   validator: (text) {
                     if (text != null && text.isEmpty) {
-                      return 'Please Enter Task Tittle';
+                      return AppLocalizations.of(context)!
+                          .please_Enter_Task_title;
                     }
                     return null;
                   },
                   autofocus: true,
                   autocorrect: true,
-                  controller:titleControler,
+                  controller: titleControler,
                   decoration: InputDecoration(
-                      label: Text('Title'),
+                      label: Text(
+                        AppLocalizations.of(context)!.title,
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline1
+                            ?.copyWith(fontWeight: FontWeight.w400),
+                      ),
+
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25),
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
+                              color:Colors.blue,
                               style: BorderStyle.solid,
                               width: 2)),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(25),
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,
+                              color:Colors.blue,
                               style: BorderStyle.solid,
-                              width: 2))),
+                              width: 2),),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(25),
+                          borderSide: BorderSide(
+                              color:Colors.blue,
+                              style: BorderStyle.solid,
+                              width: 2),),
+                  ),
                 ),
                 SizedBox(
                   height: 7,
@@ -74,25 +87,38 @@ DateTime selectDate=DateTime.now();
                 TextFormField(
                   validator: (text) {
                     if (text != null && text.isEmpty) {
-                      return 'Please Enter Task Description';
+                      return AppLocalizations.of(context)!
+                          .please_Enter_Task_Description;
                     }
                     return null;
                   },
                   decoration: InputDecoration(
-                    label: Text('Descraption'),
+                    label: Text(AppLocalizations.of(context)!.description,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline1
+                          ?.copyWith(fontWeight: FontWeight.w400,fontSize: 22),),
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(25),
                         borderSide: BorderSide(
-                            color: Theme.of(context).primaryColor,
+                            color:Colors.blue,
                             style: BorderStyle.solid,
                             width: 2)),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(25),
                       borderSide: BorderSide(
-                          color: Theme.of(context).primaryColor,
+                          color:Colors.blue,
                           style: BorderStyle.solid,
                           width: 2),
+
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25),
+                      borderSide: BorderSide(
+                          color:Colors.blue,
+                          style: BorderStyle.solid,
+                          width: 2),),
+
                   ),
                   maxLines: 4,
                   autocorrect: true,
@@ -106,9 +132,9 @@ DateTime selectDate=DateTime.now();
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Text(
-                        'Select Date',
+                        AppLocalizations.of(context)!.selectDate,
                         style: Theme.of(context).textTheme.subtitle1?.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface),
+                            color: Theme.of(context).colorScheme.surface),
                       ),
                       SizedBox(
                         height: 7,
@@ -134,34 +160,42 @@ DateTime selectDate=DateTime.now();
                                 description: descriaptionControler.text,
                                 date: DateUtils.dateOnly(selectDate)
                                     .millisecondsSinceEpoch);
-                            showloding('Loading.....', context);
+
+                            // showloding('Loading.....', context);
+
+                            showMasage(
+                              context,
+                              AppLocalizations.of(context)!.task_is_Added,
+                              AppLocalizations.of(context)!.ok,
+                                  () {
+                                hideMassage(context);
+
+                                Navigator.pop(context);
+                              },
+                            );
 
                             addTaskToFirestore(task).then((value) {
-                              // task.id=args.id;
-                              // task.title=args.title;
-                              // task.description=args.description;
-                              // task.date=args.date;
-                              // task.isDone=args.isDone;
-                              // print('${args.id}\n${args.title}\n${args.description}\n${args.date}\n');
                               print(('**' * 20));
                               print(task.id);
-                              hideMassage(context);
-                              showMasage(
-                                context,
-                                'Task is Added',
-                                'Ok',
-                                () {
-                                  Navigator.pop(context);
-                                  Navigator.pop(context);
-                                },
-                              );
+                              // Navigator.pop(context);
+                              // hideMassage(context);
+                              // showMasage(
+                              //   context,
+                              //   AppLocalizations.of(context)!.task_is_Added,
+                              //   AppLocalizations.of(context)!.ok,
+                              //   () {
+                              //     hideMassage(context);
+                              //
+                              //     Navigator.pop(context);
+                              //   },
+                              // );
                             }).catchError((error) {
                               print(error);
                               hideMassage(context);
                             });
                           }
                         },
-                        child: Text('Add'),
+                        child: Text(AppLocalizations.of(context)!.add_New_Task,style: TextStyle(fontSize: 18),),
                       ),
                     ],
                   ),

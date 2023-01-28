@@ -19,15 +19,16 @@ class _updateScreenState extends State<updateScreen> {
   late MyProvider provider;
   late TextEditingController desController;
   var formKey = GlobalKey<FormState>();
-  DateTime selectedDate = DateTime.now();
+    DateTime selectedDate = DateTime.now();
 // late var dateatinteger;
 
   @override
   Widget build(BuildContext context) {
     Tasks todo = ModalRoute.of(context)!.settings.arguments as Tasks;
 
-    // dateatinteger=selectedDate.millisecondsSinceEpoch;
-    todo.date=selectedDate.millisecondsSinceEpoch;
+      // todo.date=selectedDate.millisecondsSinceEpoch;
+
+
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     titleController = TextEditingController(text: todo.title);
@@ -36,14 +37,14 @@ class _updateScreenState extends State<updateScreen> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: Text('Update Screen'),
+        title: Text(AppLocalizations.of(context)!.update_Screen),
       ),
       body: SingleChildScrollView(
         child: Container(
           margin: EdgeInsets.symmetric(
               horizontal: width * 0.05, vertical: height * 0.12),
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.onPrimary,
             borderRadius: BorderRadius.circular(20),
           ),
           child: Padding(
@@ -54,19 +55,21 @@ class _updateScreenState extends State<updateScreen> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Text(
-                    "Update Task",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    AppLocalizations.of(context)!.update_Task,
+                    style: Theme.of(context).textTheme.headline1?.copyWith(
+                      color: Theme.of(context).colorScheme.surface,
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(
                     height: height * 0.01,
                   ),
-                  updateField(titleController, "Title", TextInputType.text,
+                  updateField(titleController, AppLocalizations.of(context)!.title, TextInputType.text,
                       (value) {
                     todo.title = value;
                   }, (value) {
                     if (value!.isEmpty) {
-                      return "please Enter Task Title";
+                      return AppLocalizations.of(context)!.please_Enter_Task_title;
                     }
                     return null;
                   }),
@@ -74,12 +77,12 @@ class _updateScreenState extends State<updateScreen> {
                     height: height * 0.03,
                   ),
                   updateField(
-                      desController, 'description', TextInputType.multiline,
+                      desController, AppLocalizations.of(context)!.description, TextInputType.multiline,
                       (value) {
                     todo.description = value;
                   }, (value) {
                     if (value!.isEmpty) {
-                      return 'please Enter Task Description';
+                      return AppLocalizations.of(context)!.description;
                     }
                     return null;
                   }),
@@ -87,8 +90,9 @@ class _updateScreenState extends State<updateScreen> {
                     height: height * 0.06,
                   ),
                   Text(
-                    'selectDate',
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+                    AppLocalizations.of(context)!.selectDate,
+                    style: Theme.of(context).textTheme.subtitle1?.copyWith(
+                        color: Theme.of(context).colorScheme.surface),
                   ),
                   SizedBox(
                     height: height * 0.06,
@@ -116,7 +120,7 @@ class _updateScreenState extends State<updateScreen> {
                         Navigator.pop(context);
                       }
                     },
-                    child: Text('Save Changes'),
+                    child: Text(AppLocalizations.of(context)!.save_Changes),
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20))),
@@ -134,13 +138,16 @@ class _updateScreenState extends State<updateScreen> {
   void selectDate() async {
     DateTime? chosenDate = await showDatePicker(
         context: context,
+
         initialDate: selectedDate,
         firstDate: DateTime.now(),
         lastDate: DateTime.now().add(Duration(days: 365)));
-    if (chosenDate == null) return;
+
+    if (chosenDate == null) return ;
+
     selectedDate = chosenDate;
-    // dateatinteger=chosenDate.millisecondsSinceEpoch;
-    // print(dateatinteger);
+
+
     setState(() {
 
     });
